@@ -1,9 +1,16 @@
-import 'package:acidentes_app/inicio/inicio_model.dart';
+import 'package:acidentes_app/inicio/models/registro_model.dart';
 import 'package:acidentes_app/inicio/inicio_repository.dart';
 import 'package:flutter/material.dart';
 
-class InicioController {
-  InicioRepository repository = InicioRepository();
+import 'package:mobx/mobx.dart';
+part 'inicio_controller.g.dart';
+
+class InicioController = InicioControllerBase with _$InicioController;
+
+abstract class InicioControllerBase with Store {
+
+  final InicioRepository repository;
+  InicioControllerBase(this.repository);
 
   var lstAcidentes = <InicioModel>[];
   final numBoletimEC = TextEditingController();
@@ -25,33 +32,35 @@ class InicioController {
   final pedestreEC = TextEditingController();
   final passageiroEC = TextEditingController();
 
+  @readonly
+  bool _carregando = false;
 
-  bool carregando = false;
 
+  @action
   Future<void> getAcidentesPorId() async {
     try {
-      carregando = true;
+      _carregando = true;
       lstAcidentes = await repository.getAcidentesPorId(numBoletimEC.text);
       print(lstAcidentes);
-      carregando = false;
+      _carregando = false;
     } catch (e) {
       print(e.toString());
       throw Exception('Erro ao buscar anuncios');
     }
   }
-
+  @action
   Future<void> getUltimosAcidentes() async {
     try {
-      carregando = true;
+      _carregando = true;
       lstAcidentes = await repository.getUltimosAcidentes();
       print(lstAcidentes);
-      carregando = false;
+      _carregando = false;
     } catch (e) {
       print(e.toString());
       throw Exception('Erro ao buscar anuncios');
     }
   }
-
+  @action
   void selecionarAcidentes(int index) {
   numBoletimEC.text = lstAcidentes[index].numBoletim.toString();
   dataHoraBoletimEC.text = lstAcidentes[index].dataHoraBoletim.toString();
@@ -72,4 +81,5 @@ class InicioController {
   pedestreEC.text = lstAcidentes[index].pedestre.toString();
   passageiroEC.text = lstAcidentes[index].passageiro.toString();
   }
+
 }
