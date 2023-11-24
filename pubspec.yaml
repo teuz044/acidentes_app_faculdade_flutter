@@ -53,6 +53,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_modular: ^6.3.2
   google_fonts: ^6.1.0
+  intl: ^0.18.1
   build_runner: ^2.4.6
   provider: ^6.0.5
   flutter_multi_formatter: ^2.11.16

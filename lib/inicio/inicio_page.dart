@@ -76,7 +76,8 @@ class _InicioPageState extends State<InicioPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0, top: 6, right: 24),
+                    padding:
+                        const EdgeInsets.only(left: 16.0, top: 6, right: 24),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -90,16 +91,16 @@ class _InicioPageState extends State<InicioPage> {
                           height: 50,
                           width: 50,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.blue.shade300
-                          ),
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.blue.shade300),
                           child: IconButton(
                               onPressed: () {
                                 Modular.to.navigate('criar_registro');
                               },
                               icon: const Icon(
                                 Icons.add,
-                                color: Colors.white, size: 30,
+                                color: Colors.white,
+                                size: 30,
                               )),
                         )
                       ],
@@ -179,6 +180,576 @@ class _InicioPageState extends State<InicioPage> {
                                 return Card(
                                   elevation: 4,
                                   child: ListTile(
+                                    trailing: IconButton(
+                                      onPressed: () {
+                                        controller.selecionarAcidentes(index);
+                                        showModalBottomSheet<void>(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return StatefulBuilder(
+                                              builder: (BuildContext context, StateSetter setState) {
+                                                return Container(
+                                                  height: 600,
+                                                  color: Colors.white,
+                                                  child: Center(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 16.0,
+                                                              right: 16),
+                                                      child: Column(
+                                                        children: [
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Flexible(
+                                                                child: IconButton(
+                                                                  onPressed: () {},
+                                                                  icon: const Icon(Icons
+                                                                      .arrow_back_ios_new_outlined),
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                flex: 2,
+                                                                child: Row(
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child:
+                                                                          ElevatedButton
+                                                                              .icon(
+                                                                        onPressed:
+                                                                            () {},
+                                                                        icon: const Icon(
+                                                                            Icons
+                                                                                .delete_outline_outlined),
+                                                                        label: const Text(
+                                                                            'Excluir'),
+                                                                        style: ElevatedButton.styleFrom(
+                                                                            backgroundColor:
+                                                                                Colors.red),
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 16,
+                                                                    ),
+                                                                    Flexible(
+                                                                      child: controller.carregando == false ? ElevatedButton.icon(
+                                                                              onPressed:
+                                                                                  () async {
+                                                                                await controller.putAtualizarRegistro();
+                                                                                await controller.getUltimosAcidentes();
+                                                                              },
+                                                                              icon: const Icon(Icons
+                                                                                  .check_box_outlined),
+                                                                              label:
+                                                                                  const Text('Salvar')): CircularProgressIndicator(),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const Divider(),
+                                                          Flexible(
+                                                            child: ListView(
+                                                              shrinkWrap: true,
+                                                              children: <Widget>[
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                TextField(
+                                                                  enabled: false,
+                                                                  controller: controller
+                                                                      .numBoletimEC,
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    labelText:
+                                                                        'Número do boletim',
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .car_crash_outlined),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  20)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                TextField(
+                                                                  controller: controller
+                                                                      .passageiroEC,
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    labelText:
+                                                                        'Passageiro',
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .car_crash_outlined),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  20)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                TextField(
+                                                                  controller:
+                                                                      controller
+                                                                          .idadeEC,
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    labelText:
+                                                                        'Idade condutor',
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .date_range_outlined),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  20)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                TextField(
+                                                                  controller: controller
+                                                                      .descSeveridadeEC,
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    labelText:
+                                                                        'Descrição de severidade',
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .car_crash_outlined),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  20)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                TextField(
+                                                                  controller: controller
+                                                                      .dataNascimentoCondutorEC,
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    labelText:
+                                                                        'Data de nascimento',
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .date_range_outlined),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  20)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                TextField(
+                                                                  controller: controller
+                                                                      .dataHoraBoletimEC,
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    labelText:
+                                                                        'Data e hora do boletim',
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .date_range),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  20)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                TextField(
+                                                                  controller: controller
+                                                                      .noEnvolvidoEC,
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    labelText:
+                                                                        'N de envolvidos',
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .group),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  20)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                Text(
+                                                                  'Condutor se feriu?',
+                                                                  style: ClassEstilosTextos
+                                                                      .pretoSize18w400Montserrat,
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        title: const Text(
+                                                                            'Sim'),
+                                                                        value: 'S',
+                                                                        groupValue:
+                                                                            controller
+                                                                                .isCondutor,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                              setState(() => controller.checkboxCondutor(value));
+                                                                          setState(
+                                                                              () {
+                                                                            controller.checkboxCondutor(value);
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    Flexible(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        title: const Text(
+                                                                            'Não'),
+                                                                        value: 'N',
+                                                                        groupValue:
+                                                                            controller
+                                                                                .isCondutor,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          setState(
+                                                                              () {
+                                                                            controller
+                                                                                .checkboxCondutor(value);
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                Text(
+                                                                  'Sexo do condutor',
+                                                                  style: ClassEstilosTextos
+                                                                      .pretoSize18w400Montserrat,
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        title: const Text(
+                                                                            'Masculino'),
+                                                                        value: 'M',
+                                                                        groupValue:
+                                                                            controller
+                                                                                .sexo,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          setState(
+                                                                              () {
+                                                                            controller
+                                                                                .checkboxSexo(value);
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    Flexible(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        title: const Text(
+                                                                            'Feminino'),
+                                                                        value: 'F',
+                                                                        groupValue:
+                                                                            controller
+                                                                                .sexo,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          setState(
+                                                                              () {
+                                                                            controller
+                                                                                .checkboxSexo(value);
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                Text(
+                                                                  'Condutor embreagado?',
+                                                                  style: ClassEstilosTextos
+                                                                      .pretoSize18w400Montserrat,
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        title: const Text(
+                                                                            'Sim'),
+                                                                        value:
+                                                                            'SIM',
+                                                                        groupValue:
+                                                                            controller
+                                                                                .isEmbreagues,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          setState(
+                                                                              () {
+                                                                            controller
+                                                                                .checkboxEmbreagues(value);
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    Flexible(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        title: const Text(
+                                                                            'Não'),
+                                                                        value:
+                                                                            'NÃO',
+                                                                        groupValue:
+                                                                            controller
+                                                                                .isEmbreagues,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          setState(
+                                                                              () {
+                                                                            controller
+                                                                                .checkboxEmbreagues(value);
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                Text(
+                                                                  'Utilização do cinto de segurança',
+                                                                  style: ClassEstilosTextos
+                                                                      .pretoSize18w400Montserrat,
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        title: const Text(
+                                                                            'Sim'),
+                                                                        value:
+                                                                            'Sim',
+                                                                        groupValue:
+                                                                            controller
+                                                                                .isCintoSeguranca,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          setState(
+                                                                              () {
+                                                                            controller
+                                                                                .checkboxCintoSeguranca(value);
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    Flexible(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        title: const Text(
+                                                                            'Não'),
+                                                                        value:
+                                                                            'Não',
+                                                                        groupValue:
+                                                                            controller
+                                                                                .isCintoSeguranca,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          setState(
+                                                                              () {
+                                                                            controller
+                                                                                .checkboxCintoSeguranca(value);
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                Text(
+                                                                  'Envolvimento de pedestres',
+                                                                  style: ClassEstilosTextos
+                                                                      .pretoSize18w400Montserrat,
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        title: const Text(
+                                                                            'Sim'),
+                                                                        value: 'S',
+                                                                        groupValue:
+                                                                            controller
+                                                                                .isPedestre,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          setState(
+                                                                              () {
+                                                                            controller
+                                                                                .checkboxPedestre(value);
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    Flexible(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        title: const Text(
+                                                                            'Não'),
+                                                                        value: 'N',
+                                                                        groupValue:
+                                                                            controller
+                                                                                .isPedestre,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          setState(
+                                                                              () {
+                                                                            controller
+                                                                                .checkboxPedestre(value);
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                TextField(
+                                                                  controller: controller
+                                                                      .categoriaHabilitacaoEC,
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    labelText:
+                                                                        'Categoria Habilitação',
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .car_crash_outlined),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  20)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                TextField(
+                                                                  controller: controller
+                                                                      .especieVeiculoEC,
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    labelText:
+                                                                        'Espécie Veículo',
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .motorcycle_outlined),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  20)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 16,
+                                                                ),
+                                                                TextField(
+                                                                  controller: controller
+                                                                      .passageiroEC,
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    labelText:
+                                                                        'Passageiro',
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .person_2_outlined),
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  20)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            );
+                                          },
+                                        );
+                                      },
+                                      icon: const Icon(Icons.edit),
+                                    ),
                                     onTap: () {
                                       controller.selecionarAcidentes(index);
                                       showDialog(

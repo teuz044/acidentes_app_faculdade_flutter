@@ -28,17 +28,21 @@ class _CriarRegistroAcidentePageState extends State<CriarRegistroAcidentePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Row(
+                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 8.0, top: 25),
+                        padding: const EdgeInsets.only(left: 8.0, top: 8),
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                              size: 40,
-                            ),
+                            IconButton(
+                                onPressed: () {
+                                  Modular.to.navigate('/inicio');
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                  size: 40,
+                                ))
                           ],
                         ),
                       ),
@@ -66,7 +70,6 @@ class _CriarRegistroAcidentePageState extends State<CriarRegistroAcidentePage> {
                       child: ListView(
                         shrinkWrap: true,
                         children: [
-                       
                           TextField(
                             controller: controller.numBoletimEC,
                             decoration: const InputDecoration(
@@ -390,10 +393,10 @@ class _CriarRegistroAcidentePageState extends State<CriarRegistroAcidentePage> {
                         : ElevatedButton.icon(
                             onPressed: () async {
                               await controller.setCriarRegistro().then(
-                                    (value) {
-                                      Modular.to.navigate('/inicio');
-                                    },
-                                  );
+                                (value) {
+                                  Modular.to.navigate('/inicio');
+                                },
+                              );
                             },
                             icon: const Icon(Icons.add_box_outlined),
                             style: ElevatedButton.styleFrom(
