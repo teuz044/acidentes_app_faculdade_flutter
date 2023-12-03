@@ -184,4 +184,15 @@ abstract class InicioControllerBase with Store {
       throw Exception('Erro ao atualizar registro');
     }
   }
+
+   @action
+  Future<void> excluirAcidentePorId() async {
+    try {
+      await repository.excluirAcidentePorId(numBoletimEC.text);
+      // Após excluir, você pode limpar os campos ou realizar outras ações necessárias
+    } catch (e) {
+      print(e.toString());
+      throw Exception('Erro ao excluir acidente');
+    }
+  }
 }

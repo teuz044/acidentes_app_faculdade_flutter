@@ -99,4 +99,14 @@ class InicioRepository {
       throw Exception('Erro ao atualizar registro');
     }
   }
+
+    Future<void> excluirAcidentePorId(String numBoletim) async {
+    try {
+      await dio.delete('http://192.168.1.23:8000/core/acidentes/excluir/$numBoletim/');
+    } catch (e) {
+      print(e.toString());
+      throw Exception('Erro ao excluir registro');
+    }
+  }
+
 }

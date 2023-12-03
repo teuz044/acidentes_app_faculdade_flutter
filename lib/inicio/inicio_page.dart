@@ -223,7 +223,11 @@ class _InicioPageState extends State<InicioPage> {
                                                                           ElevatedButton
                                                                               .icon(
                                                                         onPressed:
-                                                                            () {},
+                                                                            () async {
+                                                                              await controller.excluirAcidentePorId();
+                                                                              await controller.getUltimosAcidentes();
+                                                                              Navigator.pop(context);
+                                                                            },
                                                                         icon: const Icon(
                                                                             Icons
                                                                                 .delete_outline_outlined),
@@ -234,7 +238,7 @@ class _InicioPageState extends State<InicioPage> {
                                                                                 Colors.red),
                                                                       ),
                                                                     ),
-                                                                    SizedBox(
+                                                                    const SizedBox(
                                                                       width: 16,
                                                                     ),
                                                                     Flexible(
@@ -242,12 +246,13 @@ class _InicioPageState extends State<InicioPage> {
                                                                               onPressed:
                                                                                   () async {
                                                                                 await controller.putAtualizarRegistro();
+                                                                                
                                                                                 await controller.getUltimosAcidentes();
                                                                               },
                                                                               icon: const Icon(Icons
                                                                                   .check_box_outlined),
                                                                               label:
-                                                                                  const Text('Salvar')): CircularProgressIndicator(),
+                                                                                  const Text('Salvar')): const CircularProgressIndicator(),
                                                                     ),
                                                                   ],
                                                                 ),
